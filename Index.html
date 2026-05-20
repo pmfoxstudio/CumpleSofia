@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Ingrid Sofía · Fiesta Eevee · 7 Años</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Fredoka+One&family=Patrick+Hand&family=Nunito:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Quicksand', 'Nunito', sans-serif;
+    background: #FFF4E6;
+    color: #5D3A1A;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* TEMA EEVEE - COLORES */
+  :root {
+    --eevee-fur: #E3A56D;
+    --eevee-dark: #B5723A;
+    --eevee-cream: #FCE9D0;
+    --eevee-gold: #F7C56E;
+    --eevee-toast: #D9904A;
+    --pink-candy: #FFB7B2;
+    --mint-light: #C8E6D9;
+    --lavender-soft: #D9C8F2;
+    --brown-sweet: #8B5A2B;
+    --cream-puff: #FFF2E0;
+    --shadow-eevee: 0 15px 30px rgba(139, 69, 19, 0.12);
+  }
+
+  /* CURSOR PERSONALIZADO (PATITA DE EEVEE) */
+  .cursor {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(227, 165, 109, 0.4);
+    border: 2px solid #E3A56D;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, background 0.2s;
+    backdrop-filter: blur(2px);
+  }
+  .cursor.hover {
+    transform: translate(-50%, -50%) scale(1.7);
+    background: rgba(247, 197, 110, 0.5);
+    border-color: #F7C56E;
+  }
+
+  /* PARTÍCULAS MÁGICAS (ESTRELLITAS Y HOJITAS) */
+  #particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .sparkle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    animation: floatSparkle linear infinite;
+    background: radial-gradient(circle, #FFE0A3, #FFB347);
+    box-shadow: 0 0 6px #FFD966;
+  }
+  @keyframes floatSparkle {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    15% { opacity: 0.7; }
+    85% { opacity: 0.4; }
+    100% { transform: translateY(-80px) rotate(280deg); opacity: 0; }
+  }
+
+  /* SECCIONES */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 1;
+    background: linear-gradient(145deg, #FFF1E0 0%, #FFE7D4 100%);
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: radial-gradient(circle at 20% 40%, rgba(227, 165, 109, 0.12) 3%, transparent 3.5%),
+                      radial-gradient(circle at 75% 85%, rgba(247, 197, 110, 0.12) 2%, transparent 2.5%);
+    background-size: 48px 48px, 60px 60px;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(45deg, rgba(247, 197, 110, 0.03) 0px, rgba(247, 197, 110, 0.03) 2px, transparent 2px, transparent 12px);
+  }
+
+  .floating-eevee {
+    position: absolute;
+    width: 180px;
+    right: 5%;
+    top: 18%;
+    filter: drop-shadow(0 15px 20px rgba(0,0,0,0.2));
+    animation: floatEevee 6s infinite ease-in-out;
+    z-index: 2;
+    pointer-events: none;
+  }
+  @keyframes floatEevee {
+    0%,100%{ transform: translateY(0) rotate(0deg); }
+    50%{ transform: translateY(-16px) rotate(3deg); }
+  }
+  .pokeball-bg {
+    position: absolute;
+    left: -60px;
+    bottom: 10%;
+    width: 130px;
+    opacity: 0.2;
+    animation: spinSlow 24s linear infinite;
+  }
+  @keyframes spinSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 4;
+    text-align: center;
+    padding: 2rem;
+  }
+  .eevee-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    background: rgba(255, 243, 219, 0.85);
+    border-radius: 100px;
+    padding: 0.6rem 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    font-size: 0.8rem;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 6px 18px rgba(181, 114, 58, 0.2);
+    color: #B5723A;
+    margin-bottom: 1.6rem;
+    border: 1px solid #F7C56E;
+  }
+  .eevee-badge i {
+    font-size: 1.2rem;
+    color: #E3A56D;
+  }
+  .hero-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #C4814C;
+    display: block;
+    margin-bottom: 0.7rem;
+  }
+  .hero-script {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2.8rem, 12vw, 5.2rem);
+    background: linear-gradient(135deg, #B5723A, #E3A56D, #F7C56E);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 6px 18px rgba(227, 165, 109, 0.4);
+    letter-spacing: -0.5px;
+  }
+  .hero-surname {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: #986B3E;
+    margin-top: 0.3rem;
+  }
+  .hero-age {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin: 1.4rem auto;
+    background: rgba(255, 244, 224, 0.7);
+    padding: 0.2rem 1.4rem;
+    border-radius: 60px;
+    backdrop-filter: blur(4px);
+  }
+  .age-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, #E3A56D, #F7C56E);
+  }
+  .age-num {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3.2rem;
+    color: #D68B49;
+    text-shadow: 0 0 12px #FFD58C;
+    line-height: 1;
+  }
+  .age-years {
+    font-size: 1rem;
+    letter-spacing: 0.3em;
+    font-weight: 600;
+    color: #B5723A;
+  }
+  .hero-date {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.3rem;
+    background: #FFFAF0;
+    display: inline-block;
+    padding: 0.3rem 1.4rem;
+    border-radius: 80px;
+    margin: 0.8rem 0 1.8rem;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.05);
+    color: #8B5A2B;
+  }
+  .btn-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .btn {
+    padding: 0.9rem 2rem;
+    border-radius: 60px;
+    font-weight: 700;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    transition: all 0.25s;
+    cursor: pointer;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-eevee {
+    background: linear-gradient(135deg, #E3A56D, #B5723A);
+    color: white;
+    box-shadow: 0 8px 18px rgba(181, 114, 58, 0.4);
+  }
+  .btn-eevee:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 28px rgba(227, 165, 109, 0.5);
+  }
+  .btn-outline-eevee {
+    background: transparent;
+    border: 2px solid #E3A56D;
+    color: #B5723A;
+  }
+  .btn-outline-eevee:hover {
+    background: rgba(227, 165, 109, 0.1);
+    transform: translateY(-3px);
+  }
+
+  /* SCROLL HINT */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #C4814C;
+    opacity: 0.6;
+    font-size: 0.7rem;
+  }
+
+  /* GENERAL */
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+  .section-tag {
+    text-align: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: #D68B49;
+    margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    text-align: center;
+    color: #8B5A2B;
+    margin-bottom: 2.5rem;
+    letter-spacing: -0.3px;
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.8s, transform 0.7s;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* COUNTDOWN */
+  #countdown {
+    background: linear-gradient(180deg, #FFF2E2, #FFEBD9);
+  }
+  .countdown-grid {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+  .count-box {
+    background: #FFF7EF;
+    border-radius: 32px;
+    padding: 1.3rem 1.8rem;
+    text-align: center;
+    min-width: 100px;
+    box-shadow: 0 12px 28px rgba(99, 57, 24, 0.1);
+    border: 1px solid rgba(227, 165, 109, 0.5);
+    transition: all 0.3s;
+  }
+  .count-num {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.8rem;
+    color: #D68B49;
+    line-height: 1;
+  }
+  .count-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: #B5723A;
+  }
+
+  /* INFO CARDS */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.8rem;
+  }
+  .info-card {
+    background: rgba(255, 250, 240, 0.9);
+    border-radius: 36px;
+    padding: 2rem;
+    backdrop-filter: blur(2px);
+    box-shadow: 0 18px 32px rgba(92, 52, 18, 0.08);
+    border: 1px solid #F7C56E;
+    transition: all 0.25s;
+  }
+  .info-card:hover {
+    transform: translateY(-8px);
+    border-color: #E3A56D;
+    box-shadow: 0 28px 38px rgba(227, 165, 109, 0.2);
+  }
+  .card-icon {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+  }
+  .card-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.2rem;
+    color: #B1672C;
+    margin-bottom: 0.6rem;
+  }
+  .map-btn {
+    margin-top: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1.2rem;
+    background: #FFEDDA;
+    border-radius: 50px;
+    color: #B5723A;
+    text-decoration: none;
+    font-size: 0.8rem;
+  }
+
+  /* QUÉ LLEVAR (TEMÁTICA EEVEE) */
+  #llevar {
+    background: #FFF2E2;
+  }
+  .llevar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1rem;
+  }
+  .llevar-item {
+    background: #FFF9F0;
+    border-radius: 24px;
+    padding: 1.2rem 0.5rem;
+    text-align: center;
+    border: 1px solid #FFD8A3;
+    transition: all 0.2s;
+  }
+  .llevar-item .icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  /* MARQUEE CON EVOLUCIONES DE EEVEE */
+  .marquee-row {
+    display: flex;
+    gap: 1.2rem;
+    margin-bottom: 1rem;
+    animation: mqScroll 24s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-row:nth-child(2) {
+    animation-direction: reverse;
+    animation-duration: 28s;
+  }
+  @keyframes mqScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .marquee-item {
+    background: linear-gradient(145deg, #FFF1E2, #FFE9D5);
+    border-radius: 40px;
+    width: 120px;
+    height: 100px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    border: 1px solid #FFD6A5;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+  }
+  .marquee-item span {
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-top: 4px;
+    color: #b5723a;
+    font-family: 'Quicksand', sans-serif;
+  }
+  .marquee-item:hover {
+    transform: scale(1.05);
+    background: #FFF4E8;
+  }
+
+  /* TIMELINE  */
+  .timeline {
+    max-width: 620px;
+    margin: 0 auto;
+  }
+  .tl-item {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+    background: rgba(255, 248, 235, 0.6);
+    border-radius: 32px;
+    padding: 0.9rem 1.2rem;
+    align-items: center;
+    transition: all 0.3s;
+  }
+  .tl-time {
+    font-family: 'Fredoka One', cursive;
+    background: #FCE2C1;
+    border-radius: 50px;
+    padding: 0.2rem 0;
+    text-align: center;
+    color: #A5622E;
+  }
+  .tl-info h4 {
+    font-weight: 700;
+    color: #98673A;
+  }
+
+  /* FORMULARIO CONFIRMACIÓN (MEJORADO: CENTRADO Y SEPARADO) */
+  #confirmar {
+    background: linear-gradient(145deg, #FFEDDF, #FFF1E5);
+  }
+  .confirm-wrap {
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .confirm-card {
+    background: rgba(255, 252, 245, 0.95);
+    border-radius: 48px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 25px 45px rgba(99, 57, 24, 0.12);
+    border: 1px solid #F7C56E;
+    backdrop-filter: blur(2px);
+    transition: all 0.3s;
+  }
+  .form-group {
+    margin-bottom: 1.8rem;
+    text-align: left;
+  }
+  .form-group label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #B5723A;
+    margin-bottom: 0.5rem;
+  }
+  .form-group input, 
+  .form-group select, 
+  .form-group textarea {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    background: #FFFCF8;
+    border: 1.5px solid #FFDAB9;
+    border-radius: 32px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.95rem;
+    color: #5D3A1A;
+    transition: all 0.25s;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #E3A56D;
+    box-shadow: 0 0 0 3px rgba(227, 165, 109, 0.2);
+  }
+  .form-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #E3A56D, #B5723A);
+    border: none;
+    border-radius: 60px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: white;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 8px 20px rgba(181, 114, 58, 0.3);
+    margin-top: 0.5rem;
+  }
+  .form-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(227, 165, 109, 0.5);
+  }
+  .form-btn:disabled {
+    opacity: 0.6;
+    transform: none;
+  }
+  .confirm-success {
+    background: #FFF9EF;
+    border-radius: 48px;
+    padding: 2rem;
+    text-align: center;
+    border: 2px solid #F7C56E;
+  }
+  .confirm-success .check {
+    font-size: 3rem;
+  }
+
+  /* CONTACTOS */
+  .contacts-grid {
+    display: flex;
+    justify-content: center;
+    gap: 1.8rem;
+    flex-wrap: wrap;
+  }
+  .contact-card {
+    background: #FFFCF5;
+    border-radius: 40px;
+    padding: 1.5rem;
+    text-align: center;
+    min-width: 200px;
+    border: 1px solid #F7C56E;
+  }
+  .contact-number {
+    display: inline-block;
+    background: #F8E3CC;
+    padding: 0.4rem 1.2rem;
+    border-radius: 60px;
+    margin-top: 0.6rem;
+    color: #B5723A;
+    text-decoration: none;
+  }
+
+  footer {
+    background: #EEDBBC;
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+  }
+  @media (max-width: 600px) {
+    .floating-eevee { width: 110px; top: 8%; right: 2%; }
+    .count-box { min-width: 70px; padding: 0.8rem 1rem; }
+    .marquee-item { width: 85px; height: 85px; font-size: 1.6rem; }
+    .confirm-card { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div id="particles"></div>
+
+<!-- HERO CON EEVEE -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <img class="floating-eevee" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png" alt="Eevee" style="max-width:160px; width: auto;">
+  <img class="pokeball-bg" src="https://cdn-icons-png.flaticon.com/512/188/188987.png" alt="pokeball" style="width: 100px; opacity: 0.2;">
+  
+  <div class="hero-content">
+    <div class="eevee-badge">
+      <i class="fas fa-paw"></i> ¡Fiesta Pokémon! <i class="fas fa-star"></i> Tema Eevee
+    </div>
+    <span class="hero-label">— Con mucho cariño te invitamos a celebrar —</span>
+    <div class="hero-script">Ingrid Sofía</div>
+    <div class="hero-surname">Pérez Miramontes</div>
+    
+    <div class="hero-age">
+      <div class="age-line"></div>
+      <div>
+        <div class="age-num">7</div>
+        <div class="age-years">Años</div>
+      </div>
+      <div class="age-line"></div>
+    </div>
+
+    <div class="hero-date"><i class="fas fa-calendar-alt"></i> Sábado, 14 de Junio de 2026 · 2:00 PM</div>
+
+    <div class="btn-group">
+      <a href="#confirmar" class="btn btn-eevee"><i class="fas fa-check-circle"></i> Confirmar Asistencia</a>
+      <a href="#info" class="btn btn-outline-eevee"><i class="fas fa-gift"></i> Ver Detalles</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><i class="fas fa-chevron-down"></i> desplázate</div>
+</section>
+
+<!-- COUNTDOWN -->
+<section id="countdown">
+  <div class="section-inner" style="padding-bottom: 2rem;">
+    <div class="section-tag">— ¡La aventura comienza pronto! —</div>
+    <h2 class="section-title reveal">Cuenta regresiva para el gran día</h2>
+    <div class="countdown-grid reveal">
+      <div class="count-box"><span class="count-num" id="cd-d">00</span><span class="count-label">Días</span></div>
+      <div class="count-box"><span class="count-num" id="cd-h">00</span><span class="count-label">Horas</span></div>
+      <div class="count-box"><span class="count-num" id="cd-m">00</span><span class="count-label">Minutos</span></div>
+      <div class="count-box"><span class="count-num" id="cd-s">00</span><span class="count-label">Segundos</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO DETALLES -->
+<section id="info">
+  <div class="section-inner">
+    <div class="section-tag">— Todo lo que necesitas saber —</div>
+    <h2 class="section-title reveal">Detalles de la Fiesta Eevee</h2>
+    <div class="info-grid">
+      <div class="info-card reveal"><div class="card-icon">📅🎈</div><div class="card-title">Fecha & Hora</div><div class="card-text"><strong>Sábado 14 de Junio 2026</strong><br>Recepción desde las <strong>2:00 PM</strong><br> ¡Llegamos temprano para jugar!</div></div>
+      <div class="info-card reveal"><div class="card-icon">📍✨</div><div class="card-title">Lugar</div><div class="card-text"><strong>Terraza & Eventos PRO PARTY III</strong><br>C. San Jerónimo 2, Santa Lucía, C.P. 45200<br><a class="map-btn" href="https://www.google.com/maps/search/Terraza+Pro+Party+III+San+Jeronimo+2+Santa+Lucia+45200" target="_blank">🗺️ Ver mapa</a></div></div>
+      <div class="info-card reveal"><div class="card-icon">👗💜</div><div class="card-title">Código de vestimenta</div><div class="card-text">👕 <strong>Ropa cómoda y divertida</strong><br>¡Puedes venir disfrazado de tu Pokémon favorito o con colores Eevee! 🌟</div></div>
+      <div class="info-card reveal"><div class="card-icon">🎁🍬</div><div class="card-title">Regalos & Sorpresas</div><div class="card-text">Si deseas regalar algo, Ingrid ama los peluches, juegos de mesa o juguetes Pokémon. ❤️</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUÉ LLEVAR (EEVEE STYLE) -->
+<section id="llevar">
+  <div class="section-inner">
+    <div class="section-tag">— ¡Prepara tu espíritu Pokémon! —</div>
+    <h2 class="section-title reveal">No olvides traer</h2>
+    <div class="llevar-grid reveal">
+      <div class="llevar-item"><span class="icon">🦊</span><span>Muchas ganas de divertirte</span></div>
+      <div class="llevar-item"><span class="icon">🎭</span><span>Disfraz Pokémon (opcional)</span></div>
+      <div class="llevar-item"><span class="icon">📸</span><span>Cámara para recuerdos</span></div>
+      <div class="llevar-item"><span class="icon">🎈</span><span>Sonrisa gigante</span></div>
+      <div class="llevar-item"><span class="icon">🧸</span><span>Peluche para compartir (actividad)</span></div>
+      <div class="llevar-item"><span class="icon">⭐</span><span>Energía para bailar</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE CON EVOLUCIONES DE EEVEE (reemplazo de los dibujitos) -->
+<section id="gallery">
+  <div class="marquee-row" id="row1"></div>
+  <div class="marquee-row" id="row2"></div>
+</section>
+
+<!-- PROGRAMA -->
+<section id="programa">
+  <div class="section-inner">
+    <div class="section-tag">— Celebración mágica —</div>
+    <h2 class="section-title reveal">Programa del día</h2>
+    <div class="timeline">
+      <div class="tl-item reveal"><div class="tl-time">2:00 PM</div><div class="tl-info"><h4>🎈 Recepción Pokémon</h4><p>Bienvenida, pulseritas y foto en la cabina Eevee</p></div></div>
+      <div class="tl-item reveal"><div class="tl-time">2:45 PM</div><div class="tl-info"><h4>🎮 Juegos & Dinámicas</h4><p>Búsqueda de Poké Balls y actividades divertidas</p></div></div>
+      <div class="tl-item reveal"><div class="tl-time">3:30 PM</div><div class="tl-info"><h4>👑 Entrada triunfal de Ingrid Sofía</h4><p>Llega la cumpleañera con su corona Eevee</p></div></div>
+      <div class="tl-item reveal"><div class="tl-time">4:00 PM</div><div class="tl-info"><h4>🎂 Pastel y Mañanitas</h4><p>Cantamos "Las Mañanitas" y pastel temático</p></div></div>
+      <div class="tl-item reveal"><div class="tl-time">4:45 PM</div><div class="tl-info"><h4>🥳 Piñata y regalos</h4><p>¡Piñata de Eevee y sorpresas!</p></div></div>
+      <div class="tl-item reveal"><div class="tl-time">5:30 PM</div><div class="tl-info"><h4>💃 Baile & Karaoke Pokémon</h4><p>Música, baile y diversión hasta el final</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIRMAR ASISTENCIA (MEJORADO: CENTRADO Y SEPARADO) -->
+<section id="confirmar">
+  <div class="section-inner">
+    <div class="confirm-wrap">
+      <div class="section-tag">— Confirma tu lugar —</div>
+      <h2 class="section-title reveal">¡Dinos que vendrás!</h2>
+      <p class="confirm-subtitle" style="text-align:center; margin-bottom: 1.5rem; color:#8B5A2B;">Por favor confirma antes del <strong>7 de Junio 2026</strong> para organizar sorpresas 💖</p>
+      
+      <div id="form-container" class="confirm-card reveal">
+        <div class="form-group">
+          <label><i class="fas fa-user"></i> Tu nombre completo</label>
+          <input type="text" id="nombre" placeholder="Ej: Pamela / Fernando / Familia Pérez" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-users"></i> ¿Cuántos asistirán?</label>
+          <select id="personas">
+            <option value="1">1 persona</option>
+            <option value="2">2 personas</option>
+            <option value="3">3 personas</option>
+            <option value="4">4 personas</option>
+            <option value="5">5 personas</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-heart"></i> Mensaje para Ingrid (opcional)</label>
+          <textarea id="mensaje" placeholder="Cuéntale algo bonito..."></textarea>
+        </div>
+        <button class="form-btn" id="confirm-btn" onclick="confirmarAsistencia()"><i class="fas fa-star"></i> ¡Confirmar asistencia! <i class="fas fa-paw"></i></button>
+        <p id="form-error" style="color:#D9534F; display:none; margin-top: 1rem;"></p>
+      </div>
+
+      <div class="confirm-success" id="confirm-success" style="display:none;">
+        <div class="check">🎉✨🦊</div>
+        <h3>¡Nos vemos en la fiesta de Ingrid!</h3>
+        <p>Gracias <strong id="nombre-confirmado"></strong>, prepárate para una aventura Eevee 💫<br>14 de Junio, 2PM - Terraza Pro Party III</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTOS ORGANIZACIÓN -->
+<section id="contactos">
+  <div class="section-inner">
+    <div class="section-tag">— ¿Dudas? Escríbenos —</div>
+    <h2 class="section-title reveal">Contactos</h2>
+    <div class="contacts-grid">
+      <div class="contact-card reveal"><div class="card-icon" style="font-size:2.2rem;">👩‍👧</div><div class="card-title">María (Mamá)</div><div class="contact-role">Organización</div><a href="tel:3328638610" class="contact-number">📞 332 863 8610</a><br><a href="https://wa.me/523328638610?text=Hola%20María%2C%20tengo%20una%20duda%20sobre%20la%20fiesta%20de%20Ingrid%20💜" target="_blank" style="font-size:0.7rem;">💬 WhatsApp</a></div>
+      <div class="contact-card reveal"><div class="card-icon" style="font-size:2.2rem;">👨‍👧</div><div class="card-title">Marco (Papá)</div><div class="contact-role">Organización</div><a href="tel:3328687012" class="contact-number">📞 332 868 7012</a><br><a href="https://wa.me/523328687012?text=Hola%20Marco%2C%20pregunta%20sobre%20la%20fiesta%20de%20Ingrid%20✨" target="_blank" style="font-size:0.7rem;">💬 WhatsApp</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div style="font-family:'Fredoka One'; font-size: 1.8rem; color:#B5723A;">✨ Ingrid Sofía ✨</div>
+  <p>7 años · Fiesta Pokémon Eevee · 14 de Junio 2026 · 2:00 PM · Terraza PRO PARTY III 🌈🦊</p>
+</footer>
+
+<script>
+  // Cursor personalizado
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+  document.querySelectorAll('a, button, .info-card, .count-box, .llevar-item, .contact-card, .btn').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+
+  // Partículas
+  const particles = document.getElementById('particles');
+  for(let i=0; i<35; i++) {
+    let sp = document.createElement('div');
+    sp.classList.add('sparkle');
+    let size = Math.random() * 12 + 4;
+    sp.style.cssText = `left:${Math.random() * 100}vw; width:${size}px; height:${size}px; animation-duration:${Math.random() * 12 + 7}s; animation-delay:-${Math.random() * 15}s; background: radial-gradient(circle, #FFD966, #F7C56E);`;
+    particles.appendChild(sp);
+  }
+
+  // COUNTDOWN: 14 de Junio 2026, 2:00 PM
+  const targetDate = new Date(2026, 5, 14, 14, 0, 0);
+  function actualizarCD() {
+    const ahora = new Date();
+    const diff = targetDate - ahora;
+    if (diff <= 0) {
+      document.querySelector('.countdown-grid').innerHTML = `<div class="count-box" style="grid-column:1/-1"><span class="count-num">🎉✨ HOY ES EL DÍA ✨🎉</span></div>`;
+      return;
+    }
+    const dias = Math.floor(diff / (1000*60*60*24));
+    const horas = Math.floor((diff % (86400000)) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const segs = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-d').textContent = String(dias).padStart(2,'0');
+    document.getElementById('cd-h').textContent = String(horas).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(mins).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(segs).padStart(2,'0');
+  }
+  actualizarCD(); setInterval(actualizarCD, 1000);
+
+  // MARQUEE CON EVOLUCIONES DE EEVEE (remplazo de los dibujitos)
+  const evoluciones = [
+    { icon: "💧", name: "Vaporeon" }, { icon: "⚡", name: "Jolteon" }, { icon: "🔥", name: "Flareon" },
+    { icon: "🌙", name: "Umbreon" }, { icon: "☀️", name: "Espeon" }, { icon: "🍃", name: "Leafeon" },
+    { icon: "❄️", name: "Glaceon" }, { icon: "🎀", name: "Sylveon" }, { icon: "🦊", name: "Eevee" }
+  ];
+  function llenarMarqueeEevee(rowId) {
+    let row = document.getElementById(rowId);
+    let items = [...evoluciones, ...evoluciones, ...evoluciones.slice(0,4)];
+    items.forEach(evo => {
+      let div = document.createElement('div');
+      div.className = 'marquee-item';
+      div.innerHTML = `<div style="font-size:2rem;">${evo.icon}</div><span>${evo.name}</span>`;
+      row.appendChild(div);
+    });
+  }
+  llenarMarqueeEevee('row1');
+  llenarMarqueeEevee('row2');
+
+  // SCROLL REVEAL
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal, .tl-item').forEach(el => observer.observe(el));
+
+  // CONFIRMAR ASISTENCIA (API web3forms funcional, similar al ejemplo funcional)
+  const WEB3FORMS_KEY = '50f101be-4e1b-457a-8db9-c6b544825bf5';  // misma clave válida que funciona
+
+  async function confirmarAsistencia() {
+    const nombre = document.getElementById('nombre').value.trim();
+    const personas = document.getElementById('personas').value;
+    const mensaje = document.getElementById('mensaje').value.trim();
+    const errorEl = document.getElementById('form-error');
+    errorEl.style.display = 'none';
+    if (!nombre) { errorEl.textContent = '💕 Escribe tu nombre completo, por favor.'; errorEl.style.display = 'block'; return; }
+    const btn = document.getElementById('confirm-btn');
+    btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Enviando...';
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `🎈 Fiesta Ingrid Sofía (7 años Eevee) - Confirmación: ${nombre} (${personas} personas)`,
+          from_name: nombre,
+          message: `Confirmación 7 años Ingrid Sofía - Tema Eevee\n\nNombre: ${nombre}\nAcompañantes: ${personas}\nMensaje: ${mensaje || '✨ Que bonita fiesta'}\nFecha: 14/06/2026 2:00 PM\nLugar: Terraza PRO PARTY III`
+        })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) throw new Error('Error al enviar');
+      document.getElementById('nombre-confirmado').textContent = nombre;
+      document.getElementById('form-container').style.display = 'none';
+      document.getElementById('confirm-success').style.display = 'block';
+      lanzarConfetiEEVEE();
+    } catch(err) {
+      btn.disabled = false; btn.innerHTML = '<i class="fas fa-heart"></i> ¡Confirmar asistencia! <i class="fas fa-paw"></i>';
+      errorEl.textContent = 'Ocurrió un error, intenta de nuevo o contáctanos por WhatsApp 💛';
+      errorEl.style.display = 'block';
+    }
+  }
+
+  function lanzarConfetiEEVEE() {
+    const colores = ['#E3A56D', '#F7C56E', '#FFB7B2', '#C8E6D9', '#D9C8F2', '#FFF0B5'];
+    for(let i=0;i<80;i++) {
+      setTimeout(() => {
+        const conf = document.createElement('div');
+        conf.style.cssText = `position:fixed; top:50%; left:50%; width:${Math.random()*12+5}px; height:${Math.random()*12+5}px; background:${colores[Math.floor(Math.random()*colores.length)]}; border-radius:${Math.random() > 0.6 ? '50%' : '3px'}; pointer-events:none; z-index:10000; animation: flyC 1.6s ease forwards; --dx:${(Math.random() - 0.5) * 600}px; --dy:${(Math.random() - 0.8) * 550}px;`;
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 1800);
+      }, i * 18);
+    }
+  }
+  const styleConf = document.createElement('style');
+  styleConf.textContent = `@keyframes flyC { 0% { transform: translate(0,0) rotate(0deg); opacity: 1; } 100% { transform: translate(var(--dx), var(--dy)) rotate(360deg); opacity: 0; } }`;
+  document.head.appendChild(styleConf);
+  window.confirmarAsistencia = confirmarAsistencia;
+</script>
+</body>
+</html>
